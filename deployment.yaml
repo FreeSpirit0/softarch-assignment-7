@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: softarch-assignment-7
+  name: service-test
 spec:
   selector:
-      pod: softarch-assignment-7
+      app: softarch-assignment-7
   ports:
     - protocol: TCP
       port: 8080       # The port, the service listens on.
@@ -15,17 +15,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: softarch-assignment-7
+  name: deploy-test
 spec:
   replicas: 4
   selector:
     matchLabels:
-      pod: softarch-assignment-7
+      app: softarch-assignment-7
   template:
     metadata:
       labels:
-        pod: softarch-assignment-7
+        app: softarch-assignment-7
     spec:
       containers:
         - name: softarch-assignment-7
-          image: FreeSpirit0/softarch-assignment-7
+          image: ghcr.io/freespirit0/softarch-assignment-7:main
+          imagePullPolicy: Always
+      imagePullSecrets:
+        - name: dockerconfigjson-github-com
